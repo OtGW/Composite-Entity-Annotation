@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'java-library'
+//    id 'maven-publish'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    //test
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << '-parameters'
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled = true
+    archiveClassifier.set("")
+}
+
+bootJar {
+    enabled = false
+}
+
+//publishing {
+//    publications {
+//        bootJava(MavenPublication) {
+//            groupId ''
+//            artifactId ''
+//            artifact ''
+//        }
+//    }
+//}
